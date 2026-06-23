@@ -23,7 +23,7 @@ bool Queue_Push(EventQueue *q, const Event *e)
 
 	if(q->count < QUEUE_SIZE) {
 		q->buffer[q->head] = *e;
-		q->head = (q->head + 1) % QUEUE_SIZE;
+		q->head = (q->head + 1) & (QUEUE_SIZE - 1);
 		q->count++;
 		isSuccesful = true;
 	}
@@ -43,7 +43,7 @@ bool Queue_Pop(EventQueue *q, Event *e)
 
 	if(q->count > 0) {
 		*e = q->buffer[q->tail];
-		q->tail = (q->tail + 1) % QUEUE_SIZE;
+		q->tail = (q->tail + 1) & (QUEUE_SIZE - 1);
 		q->count--;
 		has_event = true;
 	}
